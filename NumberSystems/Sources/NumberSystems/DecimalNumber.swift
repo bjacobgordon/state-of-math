@@ -1,4 +1,4 @@
-enum DecimalNumber_Base: Int, CaseIterable {
+public enum DecimalNumber_Base: Int, CaseIterable {
     case zero
     case one
     case two
@@ -11,19 +11,30 @@ enum DecimalNumber_Base: Int, CaseIterable {
     case nine
     case ten
     
-    var quantity_representation: String {
+    public var predecessor: Self {
         switch self {
-        case .zero : return ""
-        case .one  : return "|"
-        case .two  : return "||"
-        case .three: return "|||"
-        case .four : return "||||"
-        case .five : return "|||||"
-        case .six  : return "||||||"
-        case .seven: return "|||||||"
-        case .eight: return "||||||||"
-        case .nine : return "|||||||||"
-        case .ten  : return "||||||||||"
+        case .ten  : return Self.nine
+        case .nine : return Self.eight
+        case .eight: return Self.seven
+        case .seven: return Self.six
+        case .six  : return Self.five
+        case .five : return Self.four
+        case .four : return Self.three
+        case .three: return Self.two
+        case .two  : return Self.one
+        case .one  : return Self.zero
+        case .zero : fatalError("Placeholder number has no precedent")
         }
+    }
+    
+    public var quantity: Quantity {
+        if self == .zero { return Quantity.none }
+        
+        let precedingQuantity = self.predecessor.quantity
+        return precedingQuantity.successor
+    }
+    
+    public var cardinality: Int {
+        self.rawValue
     }
 }
