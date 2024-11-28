@@ -2,11 +2,11 @@ import Testing
 @testable import NumberSystems
 
 extension DecimalNumber_Base {
-    var representationAlignsWithCardinality: Bool {
-        self.quantity_representation.count == self.rawValue
+    var quantityMatchesCardinality: Bool {
+        self.cardinality.represents(self.quantity)
     }
 }
 
 @Test func testBaseDecimalNumbers() async throws {
-    #expect(DecimalNumber_Base.allCases.allSatisfy { $0.representationAlignsWithCardinality })
+    #expect(DecimalNumber_Base.allCases.allSatisfy { $0.quantityMatchesCardinality })
 }
