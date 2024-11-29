@@ -37,4 +37,8 @@ public enum DecimalNumber_Base: Int, CaseIterable {
     public var cardinality: Int {
         self.rawValue
     }
+    
+    var quantityMatchesCardinality: Bool {
+        self.cardinality.represents(self.quantity)
+    }
 }
