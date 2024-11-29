@@ -1,18 +1,20 @@
-public enum DecimalNumber_Base: Int {
-    case zero
-    case one
-    case two
-    case three
-    case four
-    case five
-    case six
-    case seven
-    case eight
-    case nine
-    case ten
+public struct DecimalNumber {
+    public enum Base: Int {
+        case zero
+        case one
+        case two
+        case three
+        case four
+        case five
+        case six
+        case seven
+        case eight
+        case nine
+        case ten
+    }
 }
 
-extension DecimalNumber_Base: PositionalNumberBasable {
+extension DecimalNumber.Base: PositionalNumberBasable {
     public static var placeholder: Self { .zero }
     
     public var predecessor: Self {
