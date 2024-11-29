@@ -15,16 +15,16 @@ public enum DecimalNumber_Base: Int, CaseIterable {
     
     public var predecessor: Self {
         switch self {
-        case .ten  : return Self.nine
-        case .nine : return Self.eight
-        case .eight: return Self.seven
-        case .seven: return Self.six
-        case .six  : return Self.five
-        case .five : return Self.four
-        case .four : return Self.three
-        case .three: return Self.two
-        case .two  : return Self.one
-        case .one  : return Self.placeholder
+        case .ten  : return .nine
+        case .nine : return .eight
+        case .eight: return .seven
+        case .seven: return .six
+        case .six  : return .five
+        case .five : return .four
+        case .four : return .three
+        case .three: return .two
+        case .two  : return .one
+        case .one  : return .placeholder
         default    : fatalError("Base number has no defined precedent")
         }
     }
