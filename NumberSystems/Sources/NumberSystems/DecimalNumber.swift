@@ -1,4 +1,4 @@
-public enum DecimalNumber_Base: Int, PositionalNumberBasable {
+public enum DecimalNumber_Base: Int {
     case zero
     case one
     case two
@@ -10,7 +10,9 @@ public enum DecimalNumber_Base: Int, PositionalNumberBasable {
     case eight
     case nine
     case ten
-    
+}
+
+extension DecimalNumber_Base: PositionalNumberBasable {
     public static var placeholder: Self { .zero }
     
     public var predecessor: Self {
