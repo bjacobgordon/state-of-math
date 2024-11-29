@@ -1,4 +1,4 @@
-public enum DecimalNumber_Base: Int, CaseIterable {
+public enum DecimalNumber_Base: Int, PositionalNumberBasable {
     case zero
     case one
     case two
