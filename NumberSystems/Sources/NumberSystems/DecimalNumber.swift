@@ -1,16 +1,8 @@
 public struct DecimalNumber {
     public enum Base: Int {
-        case zero
-        case one
-        case two
-        case three
-        case four
-        case five
-        case six
-        case seven
-        case eight
-        case nine
-        case ten
+        case                          zero
+        case one, two  , three, four, five
+        case six, seven, eight, nine, ten
     }
 }
 
