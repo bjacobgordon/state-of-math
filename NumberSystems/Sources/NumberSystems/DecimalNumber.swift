@@ -23,7 +23,7 @@ public enum DecimalNumber_Base: Int, CaseIterable {
         case .three: return Self.two
         case .two  : return Self.one
         case .one  : return Self.zero
-        case .zero : fatalError("Placeholder number has no precedent")
+        default    : fatalError("Base number has no defined precedent")
         }
     }
     
