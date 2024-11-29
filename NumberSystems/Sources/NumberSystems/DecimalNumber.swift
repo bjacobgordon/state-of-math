@@ -29,13 +29,6 @@ public enum DecimalNumber_Base: Int, PositionalNumberBasable {
         }
     }
     
-    public var quantity: Quantity {
-        if self == Self.placeholder { return Quantity.none }
-        
-        let precedingQuantity = self.predecessor.quantity
-        return precedingQuantity.successor
-    }
-    
     public var cardinality: Int {
         self.rawValue
     }
