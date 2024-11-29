@@ -11,6 +11,8 @@ public enum DecimalNumber_Base: Int, CaseIterable {
     case nine
     case ten
     
+    public static var placeholder: Self { .zero }
+    
     public var predecessor: Self {
         switch self {
         case .ten  : return Self.nine
@@ -22,13 +24,13 @@ public enum DecimalNumber_Base: Int, CaseIterable {
         case .four : return Self.three
         case .three: return Self.two
         case .two  : return Self.one
-        case .one  : return Self.zero
+        case .one  : return Self.placeholder
         default    : fatalError("Base number has no defined precedent")
         }
     }
     
     public var quantity: Quantity {
-        if self == .zero { return Quantity.none }
+        if self == Self.placeholder { return Quantity.none }
         
         let precedingQuantity = self.predecessor.quantity
         return precedingQuantity.successor
