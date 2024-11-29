@@ -25,7 +25,7 @@ public enum DecimalNumber_Base: Int, PositionalNumberBasable {
         case .three: return .two
         case .two  : return .one
         case .one  : return .placeholder
-        default    : fatalError("Base number has no defined precedent")
+        default    : Self.fatalPredecessionError()
         }
     }
     
