@@ -1,12 +1,12 @@
 public struct DecimalNumber {
-    public enum Base: Int {
+    public enum Digit: Int {
         case                          zero
         case one, two  , three, four, five
         case six, seven, eight, nine, ten
     }
 }
 
-extension DecimalNumber.Base: PositionalNumberBasable {
+extension DecimalNumber.Digit: PositionalNumberBasable {
     public static var placeholder: Self { .zero }
     
     public var predecessor: Self {
