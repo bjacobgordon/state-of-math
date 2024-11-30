@@ -6,7 +6,7 @@ public protocol PositionalNumberBasable: CaseIterable, RawRepresentable<Int> {
 
 extension PositionalNumberBasable {
     public static func fatalPredecessionError() -> Never {
-        fatalError("Base number has no defined precedent")
+        fatalError("Digit has no defined precedent")
     }
     
     public var quantity: Quantity {
