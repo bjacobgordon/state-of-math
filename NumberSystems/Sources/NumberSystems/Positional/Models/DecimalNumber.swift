@@ -6,7 +6,7 @@ public struct DecimalNumber: PositionalNumberSystemizable {
     }
 }
 
-extension DecimalNumber.Digit: PositionalNumberBasable {
+extension DecimalNumber.Digit: PositionalDigitSystemizable {
     public static var placeholder: Self { .zero }
     
     public var predecessor: Self {
