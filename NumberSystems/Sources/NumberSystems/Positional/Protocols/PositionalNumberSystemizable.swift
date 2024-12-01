@@ -1,3 +1,3 @@
 protocol PositionalNumberSystemizable {
-    associatedtype Digit: PositionalNumberBasable
+    associatedtype Digit: PositionalDigitSystemizable
 }

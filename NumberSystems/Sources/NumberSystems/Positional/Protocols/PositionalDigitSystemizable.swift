@@ -1,10 +1,10 @@
-public protocol PositionalNumberBasable: CaseIterable, RawRepresentable<Int> {
+public protocol PositionalDigitSystemizable: CaseIterable, RawRepresentable<Int> {
     static var placeholder: Self { get }
     
     var predecessor: Self { get }
 }
 
-extension PositionalNumberBasable {
+extension PositionalDigitSystemizable {
     public static func fatalPredecessionError() -> Never {
         fatalError("Digit has no defined precedent")
     }
@@ -17,7 +17,7 @@ extension PositionalNumberBasable {
     }
 }
 
-extension PositionalNumberBasable {
+extension PositionalDigitSystemizable {
     public var cardinality: Int {
         self.rawValue
     }
