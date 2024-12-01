@@ -1,4 +1,4 @@
-public struct DecimalNumber {
+public struct DecimalNumber: PositionalNumberSystemizable {
     public enum Digit: Int {
         case                          zero
         case one, two  , three, four, five
