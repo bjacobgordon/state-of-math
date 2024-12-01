@@ -34,7 +34,7 @@ extension Quantity: Equatable {
     }
 }
 
-extension Quantity: Operable {
+extension Quantity: Hyperoperable {
     public mutating func succeed() {
         let newElement = self.embodiment.first ?? Quantity.standardEmbodyingElement
         self.embodiment.append(newElement)
@@ -44,6 +44,15 @@ extension Quantity: Operable {
         guard (self != Quantity.none) else { fatalError("There is no precedent for a lack of quantity") }
         
         self.embodiment.removeLast()
+    }
+    
+    public mutating func hyperoperateUpon(
+        atLevel givenLevel: Quantity,
+        by givenOperametrum: Quantity
+    ) {
+        if (givenLevel == Quantity.none) { return self.succeed() }
+
+        fatalError("Higher-level operations not yet defined")
     }
 }
 
