@@ -36,3 +36,19 @@ let maybeMixed             = Quantity("|🐄")
         }
     }
 }
+
+@Test("Operatrum-agnostic charateristics of level 0 hyperoperation", arguments: [
+    Quantity(""  )!,
+    Quantity("|" )!,
+    Quantity("||")!
+])
+func hyperoperationAtLevel0(_ givenOperametrum: Quantity) async throws {
+    let zero = Quantity.none
+    let ten  = Quantity(String(repeating: "|", count: 10))!
+
+    let eleven =    ten.hyperoperatedUpon(atLevel: zero, by: givenOperametrum)
+    let twelve = eleven.hyperoperatedUpon(atLevel: zero, by: givenOperametrum)
+
+    #expect(11.represents(eleven))
+    #expect(12.represents(twelve))
+}
