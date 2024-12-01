@@ -26,6 +26,25 @@ public struct Quantity: Sendable {
     }
 }
 
+extension Quantity: Equatable {
+    public static func ==(_ leftHandOperand: Self, _ rightHandOperand: Self) -> Bool {
+        var currentIndexOnLeftHand  =  leftHandOperand.embodiment.startIndex
+        var currentIndexOnRightHand = rightHandOperand.embodiment.startIndex
+
+        while (
+            (currentIndexOnLeftHand  <  leftHandOperand.embodiment.endIndex) &&
+            (currentIndexOnRightHand < rightHandOperand.embodiment.endIndex)
+        ) {
+            currentIndexOnLeftHand  =  leftHandOperand.embodiment.index(after: currentIndexOnLeftHand)
+            currentIndexOnRightHand = rightHandOperand.embodiment.index(after: currentIndexOnRightHand)
+        }
+
+        return
+            (currentIndexOnLeftHand  ==  leftHandOperand.embodiment.endIndex) &&
+            (currentIndexOnRightHand == rightHandOperand.embodiment.endIndex)
+    }
+}
+
 extension String {
     fileprivate var hasProprietaryElements: Bool {
         self.contains { $0 != Quantity.standardEmbodyingElement }
