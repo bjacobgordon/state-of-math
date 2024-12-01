@@ -1,6 +1,8 @@
 import Testing
 @testable import NumberSystems
 
-@Test func testDecimalDigits() async throws {
-    #expect(DecimalNumber.Digit.allCases.allSatisfy { $0.quantityMatchesCardinality })
+@Test func testDecimalDigitQuantities() async throws {
+    DecimalNumber.Digit.allCases.forEach {
+        #expect($0.quantityMatchesCardinality)
+    }
 }
