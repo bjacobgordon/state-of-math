@@ -1,7 +1,7 @@
 import Testing
 @testable import NumberSystems
 
-@Test func testInitialization() async throws {
+@Test func quantityInitializationViaString() async throws {
     let empty  = Quantity("")
     let single = Quantity("|")
     let mixed  = Quantity("|🐄")
