@@ -14,14 +14,14 @@ public struct Quantity: Sendable {
         self.embodiment = givenEmbodiment
     }
     
-    private mutating func succede() {
+    private mutating func succeed() {
         let newElement = self.embodiment.first ?? Quantity.standardEmbodyingElement
         self.embodiment.append(newElement)
     }
     
     public var successor: Self {
         var clone = self
-        clone.succede()
+        clone.succeed()
         return clone
     }
 }
