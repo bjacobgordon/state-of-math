@@ -39,6 +39,12 @@ extension Quantity: Operable {
         let newElement = self.embodiment.first ?? Quantity.standardEmbodyingElement
         self.embodiment.append(newElement)
     }
+    
+    public mutating func precede() {
+        guard (self != Quantity.none) else { fatalError("There is no precedent for a lack of quantity") }
+        
+        self.embodiment.removeLast()
+    }
 }
 
 extension String {
