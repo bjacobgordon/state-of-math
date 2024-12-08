@@ -35,6 +35,28 @@ public struct Quantity: Sendable {
     }
 }
 
+extension Quantity: Comparable {
+    private func compared(to another: Self) -> ComparisonResult {
+        self.embodiment.cardinalityCompare(another.embodiment)
+    }
+    
+    public static func < (
+         leftHandOperand: Self,
+        rightHandOperand: Self,
+    ) -> Bool {
+        let operandComparison = leftHandOperand.compared(to: rightHandOperand)
+        return (operandComparison == .orderedAscending)
+    }
+    
+    public static func == (
+         leftHandOperand: Self,
+        rightHandOperand: Self,
+    ) -> Bool {
+        let operandComparison = leftHandOperand.compared(to: rightHandOperand)
+        return (operandComparison == .orderedSame)
+    }
+}
+
 extension Int {
     public func represents(
         _ givenQuantity: Quantity,
@@ -64,5 +86,38 @@ extension Int {
 extension String {
     fileprivate var hasProprietaryElements: Bool {
         self.contains { $0 != Quantity.Embodiment.standardElement }
+    }
+}
+
+extension String {
+    private func ends(
+        beyond givenIndex: String.Index,
+    ) -> Bool {
+        givenIndex < self.endIndex
+    }
+    
+    fileprivate func cardinalityCompare(
+        _ that: String,
+    ) -> ComparisonResult {
+        let this = self
+        
+        var intermediateIndex = (
+            forThis: this.startIndex,
+            forThat: that.startIndex
+        )
+        
+        while (true) {
+            let thisKeepsGoing = this.ends(beyond: intermediateIndex.forThis)
+            let thatKeepsGoing = that.ends(beyond: intermediateIndex.forThat)
+            
+            switch (thisKeepsGoing, thatKeepsGoing) {
+            case   (          true,         false): return .orderedDescending
+            case   (         false,         false): return .orderedSame
+            case   (         false,          true): return .orderedAscending
+            case   (          true,          true):
+                intermediateIndex.forThis = this.index(after: intermediateIndex.forThis)
+                intermediateIndex.forThat = that.index(after: intermediateIndex.forThat)
+            }
+        }
     }
 }
