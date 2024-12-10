@@ -55,6 +55,13 @@ extension Quantity: Comparable {
     }
 }
 
+extension Quantity: Operable {
+    public mutating func succeed() {
+        let newElement = self.embodiment.first ?? Quantity.standardEmbodyingElement
+        self.embodiment.append(newElement)
+    }
+}
+
 extension Int {
     public func represents(
         _ givenQuantity: Quantity,
