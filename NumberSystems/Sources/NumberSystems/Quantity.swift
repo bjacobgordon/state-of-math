@@ -39,6 +39,20 @@ extension Int {
     ) -> Bool {
         self == givenQuantity.embodiment.count
     }
+    
+    fileprivate var standardEmbodiment: String {
+        guard 0 <= self else { fatalError("Cannot initiate Quantity instance from negative value") }
+        
+        return String(
+            repeating: Quantity.standardEmbodyingElement,
+            count    : self                             ,
+        )
+    }
+    
+    public var asQuantity: Quantity {
+        let newEmbodiment = self.standardEmbodiment
+        return Quantity(newEmbodiment)!
+    }
 }
 
 extension String {

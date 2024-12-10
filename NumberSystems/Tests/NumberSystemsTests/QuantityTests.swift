@@ -53,3 +53,16 @@ let maybeMixed             = Quantity("|•")
     #expect(maybeProprietarySingle == nil)
     #expect(maybeMixed             == nil)
 }
+
+@Test("Conversion of decimal integers to quantities", arguments: [
+       0,
+      10,
+     100,
+    1000,
+])
+func decimalIntegerToQuantity(
+    _ givenCount: Int,
+) async throws {
+    let equivalentQuantity = givenCount.asQuantity
+    #expect(givenCount.represents(equivalentQuantity))
+}
