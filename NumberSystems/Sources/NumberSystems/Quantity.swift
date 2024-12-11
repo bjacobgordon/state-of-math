@@ -79,11 +79,26 @@ extension Quantity: Hyperoperable {
             fatalError("Negative levels are not defined")
         }
         
-        guard (givenLevel == Quantity("")!) else {
+        guard (givenLevel <= Quantity("|")!) else {
             fatalError("Higher-level operations not yet supported")
         }
         
-        runningOperametrum.succeed()
+        guard (givenLevel != Quantity.none) else {
+            runningOperametrum.succeed()
+            return
+        }
+        
+        let precedingLevel = givenLevel.predecessor
+        let initialOperametrum = runningOperametrum
+        runningOperametrum = givenOperandum
+        
+        initialOperametrum.embodiment.forEach { _ in
+            Self.hyperoperate(
+                at: precedingLevel      ,
+                by:  &runningOperametrum,
+                on:     givenOperandum  ,
+            )
+        }
     }
 }
 
