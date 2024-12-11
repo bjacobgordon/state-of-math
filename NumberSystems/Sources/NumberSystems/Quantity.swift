@@ -53,6 +53,15 @@ extension Quantity: Hyperoperable {
     ) {
         if (givenLevel == Quantity.none) { return givenOperand.succeed() }
         
+        // (1 + (1 + (1 + (1 + 2))))
+        else if givenLevel == Quantity("|")! {
+            givenOperametrum.embodiment.forEach { _ in
+                Self.hyperoperateUpon(atLevel: givenLevel.predecessor, by: givenOperand, on: &givenOperand)
+            }
+            
+            return
+        }
+        
         fatalError("Higher-level operations not yet defined")
     }
 }

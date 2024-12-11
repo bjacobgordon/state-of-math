@@ -89,3 +89,12 @@ func hyperoperationAtLevel0(_ givenOperametrum: Quantity) async throws {
     #expect(11.represents(eleven))
     #expect(12.represents(twelve))
 }
+
+@Test func hyperoperationAtLevel1() async throws {
+    let one  =  1.asQuantity
+    let two  =  2.asQuantity
+    let ten  = 10.asQuantity
+    
+    let twelve = ten.hyperoperatedUpon(atLevel: one, by: two)
+    #expect(12.represents(twelve))
+}
