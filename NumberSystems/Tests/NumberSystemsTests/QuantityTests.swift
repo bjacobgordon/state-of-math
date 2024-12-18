@@ -98,3 +98,20 @@ func hyperoperationAtLevel0(_ givenOperametrum: Quantity) async throws {
     let twelve = ten.hyperoperatedUpon(atLevel: one, by: two)
     #expect(12.represents(twelve))
 }
+
+@Test("Comparison of level 2 hyperoperation to multiplication", arguments: [
+    (   1, 1),
+    (  10, 2),
+    ( 100, 3),
+    (1000, 4)
+])
+func hyperoperationAtLevel2(_ givenMultiplicand: Int, _ givenMultiplier: Int) async throws {
+    let secondLevel = 2.asQuantity
+    
+    let operametrum = givenMultiplier  .asQuantity
+    let operand     = givenMultiplicand.asQuantity
+    let operatum    = operand.hyperoperatedUpon(atLevel: secondLevel, by: operametrum)
+    
+    let product = givenMultiplicand * givenMultiplier
+    #expect(product.represents(operatum))
+}

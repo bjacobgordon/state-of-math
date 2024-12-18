@@ -4,7 +4,8 @@ public struct Quantity: Sendable {
     fileprivate static let standardEmbodyingElement = tallyMark
     private static let             embodimentOfNone = ""
     
-    public static let none = Self(Self.embodimentOfNone)!
+    public static let none     = Self(Self.embodimentOfNone)!
+    public static let singular = Self(String(Self.standardEmbodyingElement))!
     
     fileprivate var embodiment: String
     
@@ -46,6 +47,14 @@ extension Quantity: Hyperoperable {
         self.embodiment.removeLast()
     }
     
+    public static func identity(at givenLevel: Quantity) -> Quantity? {
+        switch givenLevel {
+        case Quantity.none    : return nil
+        case Quantity.singular: return Quantity.none
+        default               : return Quantity.singular
+        }
+    }
+    
     public static func hyperoperateUpon(
         atLevel givenLevel: Quantity,
         by givenOperametrum: Quantity,
@@ -58,6 +67,18 @@ extension Quantity: Hyperoperable {
             givenOperametrum.embodiment.forEach { _ in
                 Self.hyperoperateUpon(atLevel: givenLevel.predecessor, by: givenOperand, on: &givenOperand)
             }
+            
+            return
+        }
+        else if givenLevel == Quantity("||")! {
+            let precedingLevel = givenLevel.predecessor
+            var operatum = Self.identity(at: precedingLevel)!
+            
+            givenOperametrum.embodiment.forEach { _ in
+                Self.hyperoperateUpon(atLevel: precedingLevel, by: givenOperand, on: &operatum)
+            }
+            
+            givenOperand = operatum
             
             return
         }
