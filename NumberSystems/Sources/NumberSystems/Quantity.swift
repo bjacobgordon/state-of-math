@@ -70,7 +70,10 @@ extension Quantity: Hyperoperable {
             
             return
         }
-        else if givenLevel == Quantity("||")! {
+        else if
+            (givenLevel == Quantity("||" )!) ||
+            (givenLevel == Quantity("|||")!)
+        {
             let precedingLevel = givenLevel.predecessor
             var operatum = Self.identity(at: precedingLevel)!
             
