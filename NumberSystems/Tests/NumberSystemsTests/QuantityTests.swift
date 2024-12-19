@@ -186,3 +186,25 @@ func hyperoperationAtLevel2(_ givenMultiplicand: Int, _ givenMultiplier: Int) as
     
     #expect(computedProduct.represents(computedOperatum))
 }
+
+@Test("Comparison of level 3 hyperoperation to exponentiation", arguments: [
+    (4, 1),
+    (4, 2),
+    (3, 3),
+    (2, 4),
+    (1, 4),
+])
+func hyperoperationAtLevel3(
+    _ givenBase    : Int,
+    _ givenExponent: Int,
+) async throws {
+    let thirdLevel = 3.asQuantity
+    
+    let computedPower = givenBase ** givenExponent
+    
+    let   castedOperandum   = givenBase    .asQuantity
+    let   castedOperametrum = givenExponent.asQuantity
+    let computedOperatum    = castedOperandum.hyperoperatedUpon(at: thirdLevel, by: castedOperametrum)
+    
+    #expect(computedPower.represents(computedOperatum))
+}
