@@ -90,7 +90,7 @@ extension Quantity: Hyperoperable {
             fatalError("Negative levels are not defined")
         }
         
-        guard (givenLevel <= Quantity("|||")!) else {
+        guard (givenLevel <= Quantity("||||")!) else {
             fatalError("Higher-level operations not yet supported")
         }
         

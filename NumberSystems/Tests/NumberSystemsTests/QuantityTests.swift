@@ -208,3 +208,15 @@ func hyperoperationAtLevel3(
     
     #expect(computedPower.represents(computedOperatum))
 }
+
+@Test func hyperoperationAtLevel4() async throws {
+    let fourthLevel = 4.asQuantity
+    
+    let computedTetratum = (2 ** 2 ** 2 ** 2 ** 1)
+    
+    let   castedOperand     = 2.asQuantity
+    let   castedOperametrum = 4.asQuantity
+    let computedOperatum    = castedOperand.hyperoperatedUpon(at: fourthLevel, by: castedOperametrum)
+    
+    #expect(computedTetratum.represents(computedOperatum))
+}
