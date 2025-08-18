@@ -168,3 +168,21 @@ func hyperoperationAtLevel1(
     
     #expect(computedSum.represents(computedOperatum))
 }
+
+@Test("Comparison of level 2 hyperoperation to multiplication", arguments: [
+    (   1, 1),
+    (  10, 2),
+    ( 100, 3),
+    (1000, 4),
+])
+func hyperoperationAtLevel2(_ givenMultiplicand: Int, _ givenMultiplier: Int) async throws {
+    let secondLevel = 2.asQuantity
+    
+    let computedProduct = givenMultiplicand * givenMultiplier
+    
+    let   castedOperandum   = givenMultiplicand.asQuantity
+    let   castedOperametrum = givenMultiplier  .asQuantity
+    let computedOperatum    = castedOperandum.hyperoperatedUpon(at: secondLevel, by: castedOperametrum)
+    
+    #expect(computedProduct.represents(computedOperatum))
+}

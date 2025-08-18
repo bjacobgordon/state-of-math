@@ -6,7 +6,8 @@ public struct Quantity: Sendable {
     fileprivate static let standardEmbodyingElement = tallyMark
     private static let             embodimentOfNone = ""
     
-    public static let none = Self(Self.embodimentOfNone)!
+    public static let none     = Self(Self.embodimentOfNone)!
+    public static let singular = Self(String(Self.standardEmbodyingElement))!
     
     fileprivate var embodiment: String
     
@@ -70,6 +71,16 @@ extension Quantity: Hyperoperable {
         self.embodiment.removeLast()
     }
     
+    public static func identity(
+        at givenLevel: Quantity,
+    ) -> Quantity? {
+        switch givenLevel {
+        case Quantity.none    : return nil
+        case Quantity.singular: return Quantity.none
+        default               : return Quantity.singular
+        }
+    }
+    
     public static func hyperoperate(
         at   givenLevel      :       Quantity,
         by runningOperametrum: inout Quantity,
@@ -79,7 +90,7 @@ extension Quantity: Hyperoperable {
             fatalError("Negative levels are not defined")
         }
         
-        guard (givenLevel <= Quantity("|")!) else {
+        guard (givenLevel <= Quantity("||")!) else {
             fatalError("Higher-level operations not yet supported")
         }
         
@@ -90,7 +101,7 @@ extension Quantity: Hyperoperable {
         
         let precedingLevel = givenLevel.predecessor
         let initialOperametrum = runningOperametrum
-        runningOperametrum = givenOperandum
+        runningOperametrum = Self.identity(at: precedingLevel) ?? givenOperandum
         
         initialOperametrum.embodiment.forEach { _ in
             Self.hyperoperate(
