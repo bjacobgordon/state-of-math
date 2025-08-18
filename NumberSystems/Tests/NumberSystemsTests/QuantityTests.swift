@@ -129,3 +129,21 @@ func predecessorOfQuantity(
     let  precededQuantity = operativeQuantity.predecessor
     #expect(precededCount.represents(precededQuantity))
 }
+
+@Test("Operandum-agnostic characteristics of level 0 hyperoperation", arguments: [
+    Quantity(""  )!,
+    Quantity("|" )!,
+    Quantity("||")!,
+])
+func hyperoperationAtLevel0(
+    _ givenOperandum: Quantity,
+) async throws {
+    let zerothLevel = 0.asQuantity
+    
+    let ten    = 10.asQuantity
+    let eleven =    ten.hyperoperated(at: zerothLevel, on: givenOperandum)
+    let twelve = eleven.hyperoperated(at: zerothLevel, on: givenOperandum)
+    
+    #expect(11.represents(eleven))
+    #expect(12.represents(twelve))
+}
