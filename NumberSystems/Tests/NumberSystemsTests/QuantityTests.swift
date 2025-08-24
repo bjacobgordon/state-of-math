@@ -39,3 +39,17 @@ let gross   = Quantity(counting: "•", in: """
     #expect(100.represents(hundred ))
     #expect(144.represents(gross   ))
 }
+
+let maybeNone              = Quantity("")
+let maybeStandardSingle    = Quantity("|")
+let maybeStandardMany      = Quantity("||")
+let maybeProprietarySingle = Quantity("•")
+let maybeMixed             = Quantity("|•")
+
+@Test func quantityInitializationViaString() async throws {
+    #expect(maybeNone              != nil)
+    #expect(maybeStandardSingle    != nil)
+    #expect(maybeStandardMany      != nil)
+    #expect(maybeProprietarySingle == nil)
+    #expect(maybeMixed             == nil)
+}
