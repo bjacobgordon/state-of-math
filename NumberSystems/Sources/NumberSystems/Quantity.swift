@@ -57,10 +57,24 @@ extension Quantity: Comparable {
     }
 }
 
+extension Quantity.Embodiment {
+    fileprivate static let none = String.Homogeneous("")!
+}
+
+extension Quantity {
+    public static let none = Self(Self.Embodiment.none)
+}
+
 extension Quantity: Operable {
     public mutating func succeed() {
         let newElement = self.embodiment.first ?? Quantity.Embodiment.standardElement
         self.embodiment.append(newElement)
+    }
+    
+    public mutating func precede() {
+        guard (self != Quantity.none) else { fatalError("There is no precedent for a lack of quantity") }
+        
+        self.embodiment.removeLast()
     }
 }
 
