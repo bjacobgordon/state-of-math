@@ -4,6 +4,9 @@ let tallyMark: Character = "|"
 
 public struct Quantity: Sendable {
     fileprivate static let standardEmbodyingElement = tallyMark
+    private static let             embodimentOfNone = ""
+    
+    public static let none = Self(Self.embodimentOfNone)!
     
     fileprivate var embodiment: String
     
@@ -59,6 +62,12 @@ extension Quantity: Operable {
     public mutating func succeed() {
         let newElement = self.embodiment.first ?? Quantity.standardEmbodyingElement
         self.embodiment.append(newElement)
+    }
+    
+    public mutating func precede() {
+        guard (self != Quantity.none) else { fatalError("There is no precedent for a lack of quantity") }
+        
+        self.embodiment.removeLast()
     }
 }
 
