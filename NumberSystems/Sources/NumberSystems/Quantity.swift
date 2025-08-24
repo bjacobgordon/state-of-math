@@ -22,6 +22,17 @@ public struct Quantity: Sendable {
         
         self.embodiment = derivedStandardEmbodiment
     }
+    
+    public init(
+        _ givenEmbodiment: String.Homogeneous,
+    ) {
+        let standardEmbodiment = givenEmbodiment.consisting(of: Self.Embodiment.standardElement)
+        
+        self.init(
+            counting:    Self.Embodiment.standardElement,
+            in      : standardEmbodiment.value          ,
+        )
+    }
 }
 
 extension Int {
@@ -29,5 +40,11 @@ extension Int {
         _ givenQuantity: Quantity,
     ) -> Bool {
         self == givenQuantity.embodiment.count
+    }
+}
+
+extension String {
+    fileprivate var hasProprietaryElements: Bool {
+        self.contains { $0 != Quantity.Embodiment.standardElement }
     }
 }
