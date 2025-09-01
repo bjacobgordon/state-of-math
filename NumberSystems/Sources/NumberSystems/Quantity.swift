@@ -6,7 +6,8 @@ public struct Quantity: Sendable {
     fileprivate static let standardEmbodyingElement = tallyMark
     private static let             embodimentOfNone = ""
     
-    public static let none = Self(Self.embodimentOfNone)!
+    public static let none     = Self(Self.embodimentOfNone)!
+    public static let singular = Self(String(Self.standardEmbodyingElement))!
     
     fileprivate var embodiment: String
     
@@ -58,7 +59,7 @@ extension Quantity: Comparable {
     }
 }
 
-extension Quantity: Operable {
+extension Quantity: Hyperoperable {
     public mutating func succeed() {
         let newElement = self.embodiment.first ?? Quantity.standardEmbodyingElement
         self.embodiment.append(newElement)
@@ -68,6 +69,47 @@ extension Quantity: Operable {
         guard (self != Quantity.none) else { fatalError("There is no precedent for a lack of quantity") }
         
         self.embodiment.removeLast()
+    }
+    
+    public static func identity(
+        at givenLevel: Quantity,
+    ) -> Quantity? {
+        switch givenLevel {
+        case Quantity.none    : return nil
+        case Quantity.singular: return Quantity.none
+        default               : return Quantity.singular
+        }
+    }
+    
+    public static func hyperoperate(
+        at   givenLevel      :       Quantity,
+        by runningOperametrum: inout Quantity,
+        on   givenOperandum  :       Quantity,
+    ) -> Void {
+        guard (Quantity.none <= givenLevel) else {
+            fatalError("Negative levels are not defined")
+        }
+        
+        guard (givenLevel <= Quantity("||||")!) else {
+            fatalError("Higher-level operations not yet supported")
+        }
+        
+        guard (givenLevel != Quantity.none) else {
+            runningOperametrum.succeed()
+            return
+        }
+        
+        let precedingLevel = givenLevel.predecessor
+        let initialOperametrum = runningOperametrum
+        runningOperametrum = Self.identity(at: precedingLevel) ?? givenOperandum
+        
+        initialOperametrum.embodiment.forEach { _ in
+            Self.hyperoperate(
+                at: precedingLevel      ,
+                by:  &runningOperametrum,
+                on:     givenOperandum  ,
+            )
+        }
     }
 }
 

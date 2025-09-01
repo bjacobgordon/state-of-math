@@ -129,3 +129,94 @@ func predecessorOfQuantity(
     let  precededQuantity = operativeQuantity.predecessor
     #expect(precededCount.represents(precededQuantity))
 }
+
+@Test("Operandum-agnostic characteristics of level 0 hyperoperation", arguments: [
+    Quantity(""  )!,
+    Quantity("|" )!,
+    Quantity("||")!,
+])
+func hyperoperationAtLevel0(
+    _ givenOperandum: Quantity,
+) async throws {
+    let zerothLevel = 0.asQuantity
+    
+    let ten    = 10.asQuantity
+    let eleven =    ten.hyperoperated(at: zerothLevel, on: givenOperandum)
+    let twelve = eleven.hyperoperated(at: zerothLevel, on: givenOperandum)
+    
+    #expect(11.represents(eleven))
+    #expect(12.represents(twelve))
+}
+
+@Test("Alignment of level 1 hyperoperation with addition", arguments: [
+    (   1, 1),
+    (  10, 2),
+    ( 100, 3),
+    (1000, 4),
+])
+func hyperoperationAtLevel1(
+    _ givenAugend: Int,
+    _ givenAddend: Int,
+) async throws {
+    let firstLevel =  1.asQuantity
+    
+    let computedSum = givenAugend + givenAddend
+    
+    let   castedOperandum   = givenAugend.asQuantity
+    let   castedOperametrum = givenAddend.asQuantity
+    let computedOperatum    = castedOperandum.hyperoperatedUpon(at: firstLevel, by: castedOperametrum)
+    
+    #expect(computedSum.represents(computedOperatum))
+}
+
+@Test("Comparison of level 2 hyperoperation to multiplication", arguments: [
+    (   1, 1),
+    (  10, 2),
+    ( 100, 3),
+    (1000, 4),
+])
+func hyperoperationAtLevel2(_ givenMultiplicand: Int, _ givenMultiplier: Int) async throws {
+    let secondLevel = 2.asQuantity
+    
+    let computedProduct = givenMultiplicand * givenMultiplier
+    
+    let   castedOperandum   = givenMultiplicand.asQuantity
+    let   castedOperametrum = givenMultiplier  .asQuantity
+    let computedOperatum    = castedOperandum.hyperoperatedUpon(at: secondLevel, by: castedOperametrum)
+    
+    #expect(computedProduct.represents(computedOperatum))
+}
+
+@Test("Comparison of level 3 hyperoperation to exponentiation", arguments: [
+    (4, 1),
+    (4, 2),
+    (3, 3),
+    (2, 4),
+    (1, 4),
+])
+func hyperoperationAtLevel3(
+    _ givenBase    : Int,
+    _ givenExponent: Int,
+) async throws {
+    let thirdLevel = 3.asQuantity
+    
+    let computedPower = givenBase ** givenExponent
+    
+    let   castedOperandum   = givenBase    .asQuantity
+    let   castedOperametrum = givenExponent.asQuantity
+    let computedOperatum    = castedOperandum.hyperoperatedUpon(at: thirdLevel, by: castedOperametrum)
+    
+    #expect(computedPower.represents(computedOperatum))
+}
+
+@Test func hyperoperationAtLevel4() async throws {
+    let fourthLevel = 4.asQuantity
+    
+    let computedTetratum = (2 ** 2 ** 2 ** 2 ** 1)
+    
+    let   castedOperand     = 2.asQuantity
+    let   castedOperametrum = 4.asQuantity
+    let computedOperatum    = castedOperand.hyperoperatedUpon(at: fourthLevel, by: castedOperametrum)
+    
+    #expect(computedTetratum.represents(computedOperatum))
+}
